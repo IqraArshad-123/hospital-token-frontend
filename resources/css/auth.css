@@ -1,0 +1,1020 @@
+/* =========================================================
+   LIFECARE AUTH UI
+   Professional Hospital Login / Registration
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+
+:root {
+    --navy: #073b70;
+    --navy-dark: #052e58;
+    --blue: #0d4d87;
+    --red: #ef3340;
+    --light: #f5f9fd;
+    --text: #173b5f;
+    --muted: #7890a8;
+    --border: #dbe7f1;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Inter", sans-serif;
+    background:
+        radial-gradient(circle at 10% 20%, rgba(13, 77, 135, .10), transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(239, 51, 64, .08), transparent 30%),
+        #eef5fb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 18px;
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.auth-background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(7, 59, 112, .08);
+}
+
+.bg-circle.one {
+    width: 500px;
+    height: 500px;
+    left: -250px;
+    top: -250px;
+}
+
+.bg-circle.two {
+    width: 600px;
+    height: 600px;
+    right: -300px;
+    bottom: -300px;
+}
+
+.bg-circle.three {
+    width: 300px;
+    height: 300px;
+    right: 15%;
+    top: -150px;
+}
+
+
+/* =========================================================
+   MAIN AUTH CARD
+   ========================================================= */
+
+.auth-wrapper {
+    position: relative;
+    width: min(1120px, 100%);
+    z-index: 2;
+}
+
+
+/*
+   Animated glowing border
+*/
+
+.auth-card {
+    position: relative;
+    padding: 2px;
+
+    border-radius: 28px;
+
+    overflow: hidden;
+
+    background: #dceaf5;
+
+    box-shadow:
+        0 30px 80px rgba(5, 46, 88, .18),
+        0 10px 30px rgba(5, 46, 88, .08);
+
+    isolation: isolate;
+}
+
+
+/*
+   Moving light line around complete card
+*/
+
+.auth-card::before {
+    content: "";
+    position: absolute;
+
+    width: 180%;
+    height: 180%;
+
+    left: -40%;
+    top: -40%;
+
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 45deg,
+        rgba(239, 51, 64, .0) 55deg,
+        rgba(239, 51, 64, .95) 70deg,
+        rgba(255, 255, 255, 1) 82deg,
+        rgba(13, 77, 135, .95) 95deg,
+        transparent 115deg,
+        transparent 360deg
+    );
+
+    animation: rotateLight 4.5s linear infinite;
+
+    z-index: -2;
+}
+
+
+/*
+   Inner card background
+*/
+
+.auth-card::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+
+    background: #fff;
+
+    border-radius: 26px;
+
+    z-index: -1;
+}
+
+
+@keyframes rotateLight {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   INNER
+   ========================================================= */
+
+.auth-inner {
+    display: grid;
+    grid-template-columns: 42% 58%;
+
+    min-height: 690px;
+
+    background: #fff;
+
+    border-radius: 26px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   BRAND PANEL
+   ========================================================= */
+
+.brand-panel {
+    position: relative;
+
+    padding: 55px 48px;
+
+    background:
+        radial-gradient(
+            circle at 80% 15%,
+            rgba(255,255,255,.08),
+            transparent 25%
+        ),
+        linear-gradient(
+            145deg,
+            #063968,
+            #084579 55%,
+            #052f5a
+        );
+
+    color: white;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+/* decorative circles */
+
+.brand-panel::before,
+.brand-panel::after {
+    content: "";
+    position: absolute;
+
+    border: 1px solid rgba(255,255,255,.09);
+
+    border-radius: 50%;
+}
+
+.brand-panel::before {
+    width: 420px;
+    height: 420px;
+
+    right: -220px;
+    top: -170px;
+}
+
+.brand-panel::after {
+    width: 350px;
+    height: 350px;
+
+    left: -220px;
+    bottom: -190px;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.hospital-logo {
+    width: 72px;
+    height: 72px;
+
+    background: white;
+
+    border-radius: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 32px;
+
+    color: var(--red);
+
+    font-size: 25px;
+    font-weight: 800;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.16);
+
+    position: relative;
+    z-index: 2;
+
+    animation: logoFloat 4s ease-in-out infinite;
+}
+
+
+@keyframes logoFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+
+}
+
+
+.logo-heart {
+    font-size: 28px;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   BRAND TEXT
+   ========================================================= */
+
+.brand-title {
+    position: relative;
+    z-index: 2;
+
+    font-size: clamp(30px, 3vw, 43px);
+
+    line-height: 1.1;
+
+    font-weight: 800;
+
+    margin-bottom: 20px;
+}
+
+.brand-title span {
+    color: var(--red);
+}
+
+.brand-description {
+    position: relative;
+    z-index: 2;
+
+    max-width: 420px;
+
+    font-size: 15px;
+    line-height: 1.8;
+
+    color: rgba(255,255,255,.78);
+
+    margin-bottom: 35px;
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.feature-list {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    font-size: 14px;
+    color: rgba(255,255,255,.90);
+}
+
+.feature-icon {
+    width: 31px;
+    height: 31px;
+
+    border-radius: 50%;
+
+    background: var(--red);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   FORM PANEL
+   ========================================================= */
+
+.form-panel {
+    padding: 42px 55px;
+
+    background: rgba(255,255,255,.98);
+
+    position: relative;
+}
+
+
+/* top language */
+
+.language-row {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-bottom: 15px;
+}
+
+.language-btn {
+    border: 1px solid var(--border);
+
+    background: #fff;
+
+    border-radius: 50px;
+
+    padding: 8px 14px;
+
+    color: var(--navy);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .25s ease;
+}
+
+.language-btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   FORM HEADER
+   ========================================================= */
+
+.form-heading {
+    color: var(--navy);
+
+    font-size: 31px;
+
+    font-weight: 800;
+
+    margin-bottom: 7px;
+}
+
+.form-subheading {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.input-group {
+    margin-bottom: 17px;
+}
+
+.input-label {
+    display: block;
+
+    color: var(--text);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin-bottom: 7px;
+}
+
+.input-box {
+    position: relative;
+}
+
+.input-box input {
+    width: 100%;
+
+    height: 52px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    outline: none;
+
+    background: #fbfdff;
+
+    padding: 0 46px 0 15px;
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    transition:
+        border .25s ease,
+        box-shadow .25s ease,
+        transform .25s ease;
+}
+
+.input-box input:focus {
+    border-color: #4d89b8;
+
+    box-shadow:
+        0 0 0 4px rgba(13,77,135,.08);
+
+    transform: translateY(-1px);
+}
+
+.input-box input::placeholder {
+    color: #9aabba;
+}
+
+.input-icon {
+    position: absolute;
+
+    right: 16px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: var(--navy);
+
+    font-size: 15px;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   PASSWORD EYE
+   ========================================================= */
+
+.password-toggle {
+    position: absolute;
+
+    right: 15px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: 0;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    color: #7890a8;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   GENDER
+   ========================================================= */
+
+.gender-label {
+    display: block;
+
+    color: var(--text);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin-bottom: 9px;
+}
+
+.gender-options {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 9px;
+
+    margin-bottom: 17px;
+}
+
+.gender-option {
+    position: relative;
+}
+
+.gender-option input {
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.gender-option label {
+    height: 45px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 11px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    color: #617b94;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    transition: .25s ease;
+}
+
+.gender-option label:hover {
+    border-color: var(--navy);
+
+    color: var(--navy);
+}
+
+.gender-option input:checked + label {
+    background: rgba(13,77,135,.07);
+
+    border-color: var(--navy);
+
+    color: var(--navy);
+
+    box-shadow:
+        inset 0 0 0 1px var(--navy);
+}
+
+
+/* =========================================================
+   CHECKBOX
+   ========================================================= */
+
+.terms {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 9px;
+
+    margin: 7px 0 20px;
+
+    color: #7890a8;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+.terms input {
+    margin-top: 2px;
+
+    accent-color: var(--navy);
+}
+
+.terms a {
+    color: var(--navy);
+
+    text-decoration: none;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   MAIN BUTTON
+   ========================================================= */
+
+.auth-button {
+    width: 100%;
+
+    height: 53px;
+
+    border: 0;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #073b70,
+            #0d548f
+        );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition: .3s ease;
+
+    box-shadow:
+        0 10px 24px rgba(7,59,112,.18);
+}
+
+.auth-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 15px 30px rgba(7,59,112,.25);
+}
+
+.auth-button::before {
+    content: "";
+
+    position: absolute;
+
+    width: 60px;
+    height: 120px;
+
+    left: -80px;
+    top: -35px;
+
+    background: rgba(255,255,255,.22);
+
+    transform: rotate(25deg);
+
+    animation: buttonShine 3.5s infinite;
+}
+
+@keyframes buttonShine {
+
+    0% {
+        left: -100px;
+    }
+
+    45%,100% {
+        left: 120%;
+    }
+
+}
+
+
+/* =========================================================
+   BOTTOM LINK
+   ========================================================= */
+
+.bottom-link {
+    text-align: center;
+
+    color: #8195a9;
+
+    font-size: 12px;
+
+    margin-top: 18px;
+}
+
+.bottom-link a {
+    color: var(--red);
+
+    text-decoration: none;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.form-error {
+    color: #d92735;
+
+    background: #fff1f2;
+
+    border: 1px solid #ffd5d9;
+
+    border-radius: 10px;
+
+    padding: 10px 12px;
+
+    margin-bottom: 15px;
+
+    font-size: 11px;
+}
+
+.field-error {
+    color: #d92735;
+
+    font-size: 10px;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   URDU MODE
+   ========================================================= */
+
+body.urdu-mode {
+    font-family: "Noto Naskh Arabic", serif;
+}
+
+body.urdu-mode .form-panel {
+    direction: rtl;
+}
+
+body.urdu-mode .language-row {
+    justify-content: flex-start;
+}
+
+body.urdu-mode .input-box input {
+    padding: 0 15px 0 46px;
+
+    text-align: right;
+}
+
+body.urdu-mode .input-icon {
+    right: auto;
+    left: 16px;
+}
+
+body.urdu-mode .password-toggle {
+    right: auto;
+    left: 15px;
+}
+
+body.urdu-mode .bottom-link {
+    direction: rtl;
+}
+
+
+/* =========================================================
+   ENTRANCE ANIMATION
+   ========================================================= */
+
+.brand-panel {
+    animation: brandEntrance .8s ease both;
+}
+
+.form-panel {
+    animation: formEntrance .8s ease .08s both;
+}
+
+@keyframes brandEntrance {
+
+    from {
+        opacity: 0;
+        transform: translateX(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+@keyframes formEntrance {
+
+    from {
+        opacity: 0;
+        transform: translateX(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    body {
+        padding: 15px 10px;
+        align-items: flex-start;
+    }
+
+    .auth-wrapper {
+        width: 100%;
+    }
+
+    .auth-card {
+        border-radius: 22px;
+    }
+
+    .auth-inner {
+        grid-template-columns: 1fr;
+
+        min-height: auto;
+
+        border-radius: 20px;
+    }
+
+    .brand-panel {
+        padding: 32px 26px;
+
+        min-height: 390px;
+
+        justify-content: flex-start;
+    }
+
+    .hospital-logo {
+        width: 60px;
+        height: 60px;
+
+        border-radius: 18px;
+
+        margin-bottom: 22px;
+    }
+
+    .brand-title {
+        font-size: 29px;
+
+        margin-bottom: 14px;
+    }
+
+    .brand-description {
+        font-size: 13px;
+
+        line-height: 1.7;
+
+        margin-bottom: 24px;
+    }
+
+    .feature-list {
+        gap: 11px;
+    }
+
+    .feature {
+        font-size: 12px;
+    }
+
+    .feature-icon {
+        width: 27px;
+        height: 27px;
+    }
+
+    .form-panel {
+        padding: 28px 22px 32px;
+    }
+
+    .form-heading {
+        font-size: 26px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    body {
+        padding: 8px;
+    }
+
+    .brand-panel {
+        padding: 27px 20px;
+
+        min-height: 355px;
+    }
+
+    .form-panel {
+        padding: 24px 17px 28px;
+    }
+
+    .gender-options {
+        grid-template-columns: 1fr;
+    }
+
+    .gender-option label {
+        height: 43px;
+    }
+
+    .input-box input {
+        height: 49px;
+    }
+
+    .auth-button {
+        height: 50px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+}
