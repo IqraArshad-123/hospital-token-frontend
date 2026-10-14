@@ -25,3 +25,17 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Local runtime data and secrets
+/runtime-logs/
+.env.*
+!.env.example
+!.env.local.example
+*.sqlite
+*.sql
+*.zip
+*.pem
+*.pfx
+*.p12
+*.jks
+*.keystore

@@ -1,58 +1,42 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Al-Noor Hospital — frontend
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Patient, doctor and receptionist portal built with Laravel. Includes the public landing page, department/doctor discovery, token requests and tracking, staff dashboards, availability/emergency forms, notifications and responsive navigation.
 
-## About Laravel
+This repository contains only the frontend application. The hospital API, MySQL database, founder administration and token cleanup scheduler belong to the separate backend project. Laravel files under app/, config/ and routes/ here run the frontend and its authenticated API proxy.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Run locally
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Requirements: PHP 8.3+, Composer and the compatible hospital backend running separately.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. Run composer install.
+2. Copy .env.example to .env.
+3. Run php artisan key:generate to create your own local application key.
+4. Set HOSPITAL_API_URL to your backend API, for example http://127.0.0.1:8781/api.
+5. Run php artisan serve --host=127.0.0.1 --port=8780.
+6. Open http://127.0.0.1:8780.
 
-## Learning Laravel
+The active portal uses public/css/portal.css and public/js/portal.js directly; no Node build is needed for these screens. The supplied environment uses file sessions and file cache, so the frontend does not need its own hospital database or migrations. Start the backend separately; running only this repository cannot provide registration, login or token data.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Never commit .env, passwords, database files, sessions or backups. A separate local installation should generate its own APP_KEY. The same source code does not mean two computers share database records.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Code locations
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+| File | Purpose |
+|---|---|
+| resources/views/portal.blade.php | Active page shell |
+| public/js/portal.js | Screens, forms, navigation and periodic updates |
+| public/css/portal.css | Colors, desktop sidebar and mobile/tablet bottom navigation |
+| routes/web.php | Client page routes and portal-api proxy |
+| app/Http/Controllers/PortalController.php | Sends permitted client requests to backend; bearer tokens stay in server session |
+| config/hospital.php | Reads HOSPITAL_API_URL |
+| tests/Feature/PortalTest.php | Frontend and API-proxy checks |
 
-## Agentic Development
+Older Blade templates are retained as references; current routes render portal.blade.php. Founder/admin pages and management proxy routes are intentionally unavailable in this client project. Pending staff need founder approval on the separate backend before they can sign in.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Tests
 
-```bash
-composer require laravel/boost --dev
+Run php artisan test after installing development dependencies. Tests fake the backend HTTP service; they do not use the live hospital database.
 
-php artisan boost:install
-```
+## Updating an existing clone
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Back up any local work first, then pull the latest main branch. Run composer install and php artisan optimize:clear. Keep your local .env and update HOSPITAL_API_URL if needed. Git pull does not remove unrelated untracked files or automatically resolve conflicting local edits. For an exact fresh copy, clone into a new folder and configure a new local .env.
